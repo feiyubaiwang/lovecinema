@@ -526,29 +526,16 @@
             els.progressText.innerText = `${(currentQIndex + 1).toString().padStart(2, '0')} / 30`;
             els.progressBar.style.width = `${((currentQIndex + 1) / 30) * 100}%`;
             
-            // Reset option buttons state comprehensively to initial state
-            const optionButtons = document.querySelectorAll('#quiz-page button');
-            optionButtons.forEach(button => {
-                // Remove focus and active states
-                button.blur();
-                button.classList.remove('active', 'pressed', 'selected', 'focus', 'hover');
+            // Simple and effective reset: recreate button elements
+            const buttonContainer = document.querySelector('#quiz-page .grid');
+            if (buttonContainer) {
+                // Store current buttons
+                const oldButtons = buttonContainer.innerHTML;
                 
-                // Remove all inline styles
-                button.removeAttribute('style');
-                
-                // Reset icon states
-                const icon = button.querySelector('i');
-                if (icon) {
-                    icon.removeAttribute('style');
-                    // Ensure icon returns to initial opacity
-                    icon.style.opacity = '0';
-                }
-                
-                // Reset button to initial appearance
-                button.style.borderColor = '';
-                button.style.color = '';
-                button.style.backgroundColor = '';
-            });
+                // Clear and recreate buttons to ensure clean state
+                buttonContainer.innerHTML = '';
+                buttonContainer.innerHTML = oldButtons;
+            }
         }
 
         function handleAnswer(value) {
@@ -557,30 +544,6 @@
             
             if (q.axis === 'anxiety') anxietyScore += impact;
             if (q.axis === 'avoidance') avoidanceScore += impact;
-
-            // Reset button states immediately to initial state
-            const optionButtons = document.querySelectorAll('#quiz-page button');
-            optionButtons.forEach(button => {
-                // Remove focus and active states
-                button.blur();
-                button.classList.remove('active', 'pressed', 'selected', 'focus', 'hover');
-                
-                // Remove all inline styles
-                button.removeAttribute('style');
-                
-                // Reset icon states
-                const icon = button.querySelector('i');
-                if (icon) {
-                    icon.removeAttribute('style');
-                    // Ensure icon returns to initial opacity
-                    icon.style.opacity = '0';
-                }
-                
-                // Reset button to initial appearance
-                button.style.borderColor = '';
-                button.style.color = '';
-                button.style.backgroundColor = '';
-            });
 
             currentQIndex++;
             
