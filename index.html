@@ -526,13 +526,19 @@
             els.progressText.innerText = `${(currentQIndex + 1).toString().padStart(2, '0')} / 30`;
             els.progressBar.style.width = `${((currentQIndex + 1) / 30) * 100}%`;
             
-            // Reset option buttons state
+            // Reset option buttons state comprehensively
             const optionButtons = document.querySelectorAll('#quiz-page button');
             optionButtons.forEach(button => {
                 button.blur(); // Remove focus state
-                // Reset any custom styles if applied
-                button.style.borderColor = '';
-                button.style.color = '';
+                // Reset all inline styles
+                button.removeAttribute('style');
+                // Reset any active/pressed state
+                button.classList.remove('active', 'pressed', 'selected');
+                // Ensure icon opacity is reset
+                const icon = button.querySelector('i');
+                if (icon) {
+                    icon.style.opacity = '';
+                }
             });
         }
 
