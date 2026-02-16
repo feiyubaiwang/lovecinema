@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哪部电影是你的爱情</title>
+    <!-- Google Fonts for Cinematic Feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#FF6F67',
+                        dark: '#121212',
+                        surface: '#1E1E1E',
+                        subtle: '#2A2A2A'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #121212;
+            color: #E0E0E0;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF6F67;
+        }
+
+        .glass-panel {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-hover-effect {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-hover-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 111, 103, 0.1);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        .btn-hover-effect:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Chart Point Animation */
+        .chart-point {
+            box-shadow: 0 0 15px #FF6F67;
+            animation: breathe 3s infinite ease-in-out;
+        }
+        @keyframes breathe {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 15px rgba(255, 111, 103, 0.6); }
+            50% { transform: translate(-50%, -50%) scale(1.2); box-shadow: 0 0 25px rgba(255, 111, 103, 0.9); }
+        }
+
+        .movie-poster-overlay {
+            background: linear-gradient(to top, #121212 10%, transparent 100%);
+        }
+        
+        /* Hide sections initially */
+        .hidden-section {
+            display: none;
+        }
+
+        /* Grid lines for chart */
+        .grid-line-dashed {
+            border-style: dashed;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col items-center justify-center relative selection:bg-brand selection:text-white">
+
+    <!-- Background Ambience -->
+    <div class="fixed inset-0 z-[-1] opacity-20 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand blur-[150px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-900 blur-[150px]"></div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div id="app-container" class="w-full max-w-2xl px-6 py-8 min-h-[80vh] flex flex-col justify-center">
+
+        <!-- 1. LANDING PAGE -->
+        <section id="landing-page" class="text-center space-y-8 animate-fade-in">
+            <div class="space-y-2">
+                <!-- Removed Psychology & Cinema -->
+                <h1 class="font-serif text-5xl md:text-6xl text-white leading-tight">
+                    你拿到的<br>
+                    <span class="text-brand">爱情</span>剧本
+                </h1>
+            </div>
+            
+            <p class="text-gray-400 font-sans max-w-md mx-auto leading-relaxed">
+                爱是没有彩排的电影。通过30道题，我们在16种恋爱人格中，为你匹配那部最像你的爱情电影。
+            </p>
+
+            <div class="pt-8">
+                <button onclick="startQuiz()" class="group relative px-10 py-4 border border-brand text-brand font-serif text-xl overflow-hidden transition-all hover:text-white hover:bg-brand duration-500">
+                    <span class="relative z-10">开始测试</span>
+                </button>
+            </div>
+            
+            <div class="pt-12 flex justify-center gap-8 opacity-50 text-xs tracking-widest">
+                <span>30道测试题</span>
+                <span>•</span>
+                <span>16种恋爱人格</span>
+                <span>•</span>
+                <span>深度心理分析</span>
+            </div>
+        </section>
+
+        <!-- 2. QUIZ PAGE -->
+        <section id="quiz-page" class="hidden-section w-full max-w-xl mx-auto">
+            <!-- Progress -->
+            <div class="flex items-center justify-between mb-8 text-xs text-brand font-mono">
+                <span id="progress-text">01 / 30</span>
+                <div class="w-32 h-[1px] bg-gray-800">
+                    <div id="progress-bar" class="h-full bg-brand transition-all duration-300" style="width: 3%"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="glass-panel p-8 md:p-12 rounded-lg shadow-2xl animate-slide-up relative overflow-hidden min-h-[300px] flex flex-col justify-center">
+                
+                <h2 id="question-text" class="font-serif text-2xl md:text-3xl text-left leading-relaxed mb-10 z-10 relative">
+                    Question loading...
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 z-10 relative">
+                    <button onclick="handleAnswer(1)" class="btn-hover-effect py-4 px-6 border border-gray-700 rounded text-gray-300 hover:border-brand hover:text-white text-sm tracking-wide text-left flex items-center justify-between group">
+                        <span>是 / 符合</span>
+                        <i data-lucide="check" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-brand"></i>
+                    </button>
+                    <button onclick="handleAnswer(-1)" class="btn-hover-effect py-4 px-6 border border-gray-700 rounded text-gray-300 hover:border-brand hover:text-white text-sm tracking-wide text-left flex items-center justify-between group">
+                        <span>否 / 不符合</span>
+                        <i data-lucide="x" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-brand"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. LOADING PAGE -->
+        <section id="loading-page" class="hidden-section text-center">
+            <div class="relative w-24 h-24 mx-auto mb-8">
+                <div class="absolute inset-0 border-t border-brand rounded-full animate-spin"></div>
+                <div class="absolute inset-2 border-r border-white opacity-20 rounded-full animate-spin" style="animation-direction: reverse;"></div>
+            </div>
+            <h3 class="font-serif text-2xl text-white mb-2">正在冲印你的胶片...</h3>
+            <p id="loading-text" class="text-brand text-sm font-mono animate-pulse">正在匹配 1/16 种剧本...</p>
+        </section>
+
+        <!-- 4. RESULT PAGE -->
+        <section id="result-page" class="hidden-section w-full animate-fade-in pb-20">
+            
+            <!-- Hero: Movie Poster Match -->
+            <div class="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-xl overflow-hidden mb-10 shadow-2xl group">
+                <img id="result-image" src="" alt="Movie Scene" class="w-full h-full object-cover transition-transform duration-[10s] ease-in-out transform group-hover:scale-110 opacity-80">
+                <div class="movie-poster-overlay absolute inset-0 flex flex-col justify-end p-8">
+                    <div class="border-l-2 border-brand pl-4">
+                        <p class="text-brand text-xs tracking-widest uppercase mb-1">你的专属电影</p>
+                        <h2 id="result-movie" class="font-serif text-3xl md:text-5xl text-white mb-1">电影标题</h2>
+                        <p id="result-couple" class="text-gray-300 font-sans text-sm italic">角色 & 角色</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                
+                <!-- Left: Quadrant Chart -->
+                <div class="glass-panel p-6 rounded-lg">
+                    <h3 class="font-serif text-xl mb-6 text-center text-white">你的恋爱坐标</h3>
+                    
+                    <div class="relative w-full aspect-square border border-gray-700 bg-[#1a1a1a] rounded-sm overflow-hidden">
+                        <!-- Labels -->
+                        <span class="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] text-gray-500 tracking-wider">高焦虑</span>
+                        <span class="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] text-gray-500 tracking-wider">低焦虑</span>
+                        <span class="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-500 tracking-wider writing-vertical-lr" style="writing-mode: vertical-lr;">高回避</span>
+                        <span class="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-500 tracking-wider writing-vertical-lr" style="writing-mode: vertical-lr;">低回避</span>
+
+                        <!-- Axes -->
+                        <div class="absolute top-0 bottom-0 left-1/2 w-[1px] bg-gray-500"></div> <!-- Y Axis -->
+                        <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-gray-500"></div> <!-- X Axis -->
+
+                        <!-- Sub-grid lines for visual 4x4 feel -->
+                        <div class="absolute top-0 bottom-0 left-[25%] w-[1px] border-r grid-line-dashed opacity-20"></div>
+                        <div class="absolute top-0 bottom-0 right-[25%] w-[1px] border-r grid-line-dashed opacity-20"></div>
+                        <div class="absolute left-0 right-0 top-[25%] h-[1px] border-b grid-line-dashed opacity-20"></div>
+                        <div class="absolute left-0 right-0 bottom-[25%] h-[1px] border-b grid-line-dashed opacity-20"></div>
+
+                        <!-- Quadrant Labels (Background) -->
+                        <div class="absolute top-[10%] left-[10%] text-xs text-gray-700 font-serif font-bold opacity-30">恐惧型</div>
+                        <div class="absolute top-[10%] right-[10%] text-xs text-gray-700 font-serif font-bold opacity-30">焦虑型</div>
+                        <div class="absolute bottom-[10%] left-[10%] text-xs text-gray-700 font-serif font-bold opacity-30">疏离型</div>
+                        <div class="absolute bottom-[10%] right-[10%] text-xs text-brand font-serif font-bold opacity-30">安全型</div>
+
+                        <!-- User Point -->
+                        <div id="chart-point" class="chart-point absolute w-3 h-3 bg-brand rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 transition-all duration-1000"></div>
+                        
+                        <!-- Connecting Lines (Visual Aid) -->
+                        <div id="line-x" class="absolute bg-brand/30 h-[1px] w-0 top-1/2 left-1/2 z-10 transition-all duration-1000"></div>
+                        <div id="line-y" class="absolute bg-brand/30 w-[1px] h-0 top-1/2 left-1/2 z-10 transition-all duration-1000"></div>
+                    </div>
+                </div>
+
+                <!-- Right: Text Analysis -->
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span id="result-tag" class="px-2 py-1 border border-brand/50 text-brand text-[10px] uppercase tracking-widest rounded">恋爱原型</span>
+                            <h3 id="result-type" class="font-serif text-2xl md:text-3xl text-white">Result Type</h3>
+                        </div>
+                        <div class="h-1 w-12 bg-white/20 mb-4"></div>
+                        <p id="result-desc" class="text-gray-300 leading-relaxed text-sm md:text-base font-light">
+                            Analysis goes here...
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-5 rounded border-l-4 border-brand/60">
+                        <p id="result-quote" class="text-gray-400 italic text-sm">"Movie Quote goes here."</p>
+                    </div>
+
+                    <div class="pt-4">
+                         <button onclick="location.reload()" class="text-xs text-gray-500 hover:text-brand transition-colors tracking-widest uppercase flex items-center gap-2">
+                            <i data-lucide="refresh-ccw" class="w-3 h-3"></i> 重新测试
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // --- DATA & CONFIG ---
+        
+        // Questions same as before
+        const questions = [
+            { text: "我经常担心我的伴侣其实并没有那么爱我。", axis: "anxiety", weight: 1 },
+            { text: "当我无法联系到伴侣时，我会感到强烈的焦虑和不安。", axis: "anxiety", weight: 1 },
+            { text: "在感情中，我往往是那个付出更多、更渴望亲密的人。", axis: "anxiety", weight: 1 },
+            { text: "我非常在意伴侣说话的语气和细微的表情变化。", axis: "anxiety", weight: 1 },
+            { text: "如果伴侣表现得冷淡，我会立刻反思是不是自己做错了什么。", axis: "anxiety", weight: 1 },
+            { text: "我需要伴侣经常性的言语肯定才能感到安全。", axis: "anxiety", weight: 1 },
+            { text: "我有时会故意制造一些小冲突，只是为了确认他在乎我。", axis: "anxiety", weight: 1 },
+            { text: "一旦确立关系，我会把对方看作我生活的全部重心。", axis: "anxiety", weight: 1 },
+            { text: "我很难在感情中保持自我，总是不自觉地讨好对方。", axis: "anxiety", weight: 1 },
+            { text: "对于伴侣的过去，我总是忍不住想去探究和比较。", axis: "anxiety", weight: 1 },
+            { text: "我有信心即使没有伴侣，我也能过得很好。", axis: "anxiety", weight: -1 },
+            { text: "我相信我的伴侣是爱我的，不需要反复确认。", axis: "anxiety", weight: -1 },
+            { text: "我不担心被抛弃，我知道我有值得被爱的价值。", axis: "anxiety", weight: -1 },
+            { text: "当伴侣和其他异性相处时，我很少感到嫉妒。", axis: "anxiety", weight: -1 },
+            { text: "我有自己独立的情绪调节机制，不完全依赖伴侣。", axis: "anxiety", weight: -1 },
+
+            { text: "当伴侣想要太靠近我时，我会感到不自在甚至窒息。", axis: "avoidance", weight: 1 },
+            { text: "我更习惯自己解决问题，不喜欢向伴侣寻求帮助。", axis: "avoidance", weight: 1 },
+            { text: "对我来说，保持独立比建立亲密关系更重要。", axis: "avoidance", weight: 1 },
+            { text: "我不喜欢与人分享内心深处的脆弱和秘密。", axis: "avoidance", weight: 1 },
+            { text: "当关系变得过于亲密时，我会下意识地想要后退。", axis: "avoidance", weight: 1 },
+            { text: "我经常觉得伴侣对我的要求太多，让我感到负担。", axis: "avoidance", weight: 1 },
+            { text: "对于承诺和未来，我总是感到犹豫和抗拒。", axis: "avoidance", weight: 1 },
+            { text: "我很难完全信任一个人，总觉得那是危险的。", axis: "avoidance", weight: 1 },
+            { text: "在冲突发生时，我的第一反应是冷战或逃避。", axis: "avoidance", weight: 1 },
+            { text: "我不喜欢过于黏腻的肢体接触。", axis: "avoidance", weight: 1 },
+            { text: "我很享受和伴侣之间深刻的情感连接。", axis: "avoidance", weight: -1 },
+            { text: "我可以很自然地向伴侣表达我的爱意和依赖。", axis: "avoidance", weight: -1 },
+            { text: "遇到困难时，我第一时间想到的就是告诉伴侣。", axis: "avoidance", weight: -1 },
+            { text: "即使在争吵中，我也愿意留下来沟通而不是离开。", axis: "avoidance", weight: -1 },
+            { text: "我渴望那种两个人合二为一的亲密感。", axis: "avoidance", weight: -1 },
+        ];
+
+        questions.sort(() => Math.random() - 0.5);
+
+        let currentQIndex = 0;
+        let anxietyScore = 0;   
+        let avoidanceScore = 0; 
+
+        // 16-GRID MOVIE DATABASE
+        // Rows: 0=High Anxiety, 3=Low Anxiety
+        // Cols: 0=High Avoidance, 3=Low Avoidance
+        const resultsGrid = [
+            // ROW 0: VERY HIGH ANXIETY (The Volatile/Obsessive)
+            [
+                // Col 0: High Avoidance (Fearful - Volatile)
+                {
+                    title: "《消失的爱人》",
+                    couple: "尼克 & 艾米",
+                    tag: "相爱相杀",
+                    desc: "你的爱情剧本充满了极致的张力。你极度渴望爱，却又本能地防御。在关系中，你可能不自觉地陷入“控制与反控制”的博弈。爱对你来说不是平静的港湾，而是一场高智商的战争，你既怕被吞噬，又怕被抛弃。",
+                    quote: "婚姻就是互相妥协、努力经营，然后重新来过。",
+                    img: "https://images.unsplash.com/photo-1594322436404-5a0526db4d13?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 1: Med Avoidance (Fearful - Insecure)
+                {
+                    title: "《蓝色情人节》",
+                    couple: "迪恩 & 辛迪",
+                    tag: "破碎的浪漫",
+                    desc: "你像迪恩一样用尽全力去爱，却像辛迪一样在现实面前感到窒息。你内心深处渴望永恒，但潜意识里总觉得美好的事物终将破碎。这种悲观底色让你在面对冲突时，一边激烈争吵寻求关注，一边筑起高墙准备撤退。",
+                    quote: "我觉得男人比女人更浪漫。我们结婚只因为我们爱那个女孩。",
+                    img: "https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 2: Med Secure (Preoccupied - Intense)
+                {
+                    title: "《恋恋笔记本》",
+                    couple: "诺亚 & 艾莉",
+                    tag: "激情拉扯",
+                    desc: "你的爱如烈火，充满戏剧性。你不在乎争吵，甚至认为激烈的冲突是爱的证明。你像诺亚一样执着，需要极高浓度的情感确认。如果生活太从容，你会觉得那是乏味；你追求的是那种非你不可、撕心裂肺的宿命感。",
+                    quote: "虽然会有痛苦和差异，但我想和你在一起，直到永远。",
+                    img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 3: Low Avoidance (Preoccupied - Obsessive)
+                {
+                    title: "《了不起的盖茨比》",
+                    couple: "盖茨比 & 黛西",
+                    tag: "极致理想化",
+                    desc: "你为爱构建了一座宏伟的城堡。你倾向于将伴侣理想化，像盖茨比凝视绿光一样凝视着对方。你愿意为爱付出一切，甚至失去自我。但要小心，你爱上的究竟是那个真实的人，还是你为了填补内心空洞而投射出的完美幻影？",
+                    quote: "我这一生都想要离你更近一步。",
+                    img: "https://images.unsplash.com/photo-1542259681-d2622960fc68?q=80&w=1920&auto=format&fit=crop"
+                }
+            ],
+            // ROW 1: MED-HIGH ANXIETY
+            [
+                // Col 0 (Fearful - Evasive)
+                {
+                    title: "《蒂凡尼的早餐》",
+                    couple: "霍莉 & 保罗",
+                    tag: "逃避依恋",
+                    desc: "你像霍莉一样，是一只害怕被关进笼子的鸟。你渴望归属感，但当真爱靠近时，你的第一反应是逃跑。你害怕一旦确立关系就会失去自由，或者被看穿内心的狼藉。你在“想爱”和“不敢爱”之间反复横跳。",
+                    quote: "你看，这就是你的问题，你害怕去爱别人，你怕这会成为你的羁绊。",
+                    img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 1 (Fearful - Complex)
+                {
+                    title: "《暖暖内含光》",
+                    couple: "乔尔 & 克莱门汀",
+                    tag: "矛盾共生",
+                    desc: "你是复杂而迷人的矛盾体。你常常被那些让你痛苦的人吸引，认为那才是深刻。由于缺乏安全感，你容易情绪化，这让伴侣感到疲惫，也让你自己受伤。你想删除那些不愉快的记忆，但又深知正是那些记忆构成了现在的你。",
+                    quote: "你可以从记忆中抹去一个人，但无法将他从心里驱逐。",
+                    img: "https://images.unsplash.com/photo-1516726817505-f5ed825624d8?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 2 (Anxious - Sensitive)
+                {
+                    title: "《和莎莫的500天》",
+                    couple: "汤姆 & 莎莫",
+                    tag: "过度解读",
+                    desc: "在感情中，你往往是那个更投入、心思更细腻的人。你像汤姆一样，容易过度解读伴侣的一举一动，将自己的期待投射在对方身上。当对方无法回应你的期待时，你会陷入深深的自我怀疑。试着去爱真实的对方，而不是爱上爱情本身。",
+                    quote: "仅仅因为她喜欢和你一样的奇怪玩意儿，并不代表她是你的灵魂伴侣。",
+                    img: "https://images.unsplash.com/photo-1529335764857-3f1164d1ea24?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 3 (Anxious - Devoted)
+                {
+                    title: "《泰坦尼克号》",
+                    couple: "杰克 & 露丝",
+                    tag: "生死相随",
+                    desc: "你的爱纯粹而热烈。一旦认定一个人，你就会毫无保留地付出，甚至愿意牺牲自己。你将伴侣视为救赎，视为带你逃离枯燥生活的希望。这种爱感天动地，但也请记得，在爱别人之前，先学会独立地站立在船头。",
+                    quote: "You jump, I jump. (你跳，我也跳。)",
+                    img: "https://images.unsplash.com/photo-1500699863892-a16999b7842c?q=80&w=1920&auto=format&fit=crop"
+                }
+            ],
+            // ROW 2: MED-LOW ANXIETY (Moving towards Secure)
+            [
+                // Col 0 (Dismissive - Stoic)
+                {
+                    title: "《在云端》",
+                    couple: "瑞恩",
+                    tag: "极简主义",
+                    desc: "你的情感背包里只装必要的行李。你像瑞恩一样，认为人际关系是沉重的负担。你擅长独处，拒绝深度羁绊，享受一种没有承诺的轻盈感。这不是因为你不需要爱，而是你太害怕失去自由，所以选择先拒绝世界。",
+                    quote: "如果你想飞得快，就得轻装上阵。",
+                    img: "https://images.unsplash.com/photo-1436491865332-7a61a109a33e?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 1 (Dismissive - Guarded)
+                {
+                    title: "《傲慢与偏见》",
+                    couple: "达西 & 伊丽莎白",
+                    tag: "傲慢防备",
+                    desc: "你用傲慢掩饰真心，用理智对抗心动。像达西先生一样，你外表高冷，内心却有深情。你极度看重自尊，不愿轻易暴露脆弱。你需要很长的时间去考察一个人，才会慢慢卸下防备，允许对方进入你的领地。",
+                    quote: "可以说我都已经想通了，可我还是不知所措。",
+                    img: "https://images.unsplash.com/photo-1474552226712-ac0f0961a954?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 2 (Secure - Realistic)
+                {
+                    title: "《爱在黎明破晓前》",
+                    couple: "杰西 & 席琳",
+                    tag: "灵魂共振",
+                    desc: "你向往的不是轰轰烈烈，而是深刻的理解。你的爱情建立在交流之上，像杰西和席琳一样，你们可以在漫步中谈论一切。你相对安全，但也保持着清醒的现实感。你知道爱不仅仅是激情，更是两个独立灵魂的碰撞。",
+                    quote: "如果这世上有什么魔法，那一定是在试图理解某人的过程中。",
+                    img: "https://images.unsplash.com/photo-1520032525096-7bd04a94b5a4?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 3 (Secure - Gentle)
+                {
+                    title: "《诺丁山》",
+                    couple: "威廉 & 安娜",
+                    tag: "温柔治愈",
+                    desc: "你的爱是温和的、包容的。你情绪稳定，不会因为对方的身份或情绪波动而患得患失。你愿意静静地等待，用真诚去融化对方的防线。在你的剧本里，爱不需要太多的技巧，只需要一颗真诚的心。",
+                    quote: "我只是一个女孩，站在一个男孩面前，请求他爱她。",
+                    img: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1920&auto=format&fit=crop"
+                }
+            ],
+            // ROW 3: LOW ANXIETY (Very Secure / Dismissive Loner)
+            [
+                // Col 0 (Dismissive - Armored)
+                {
+                    title: "《007：大战皇家赌场》",
+                    couple: "邦德 & 维斯帕",
+                    tag: "情感铠甲",
+                    desc: "你是最难被攻克的堡垒。为了保护自己，你穿上了厚厚的铠甲，表现得玩世不恭或冷酷无情。只有极少数人能看到你面具下的深情。你很难信任别人，一旦遭到背叛，你会彻底关闭心门，永不回头。",
+                    quote: "我有铠甲，因为我不想只剩下心脏。",
+                    img: "https://images.unsplash.com/photo-1510070112810-d4e9a46d9e91?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 1 (Dismissive/Secure - Cool)
+                {
+                    title: "《史密斯夫妇》",
+                    couple: "约翰 & 简",
+                    tag: "势均力敌",
+                    desc: "你欣赏独立、强大、甚至带点危险气息的伴侣。你不喜欢那种黏腻的依赖关系，更享受一种势均力敌的较量感。在你的爱情里，保持神秘感和个人空间至关重要。你和伴侣不仅是爱人，更是并肩作战的战友。",
+                    quote: "结局如果是和你在一起，那还不算太坏。",
+                    img: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 2 (Secure - Friends)
+                {
+                    title: "《当哈利遇到莎莉》",
+                    couple: "哈利 & 莎莉",
+                    tag: "长久陪伴",
+                    desc: "你是典型的安全型恋人。你不相信一见钟情的神话，更看重时间的沉淀。你的爱建立在深厚的友谊和了解之上。在感情中，你情绪极其稳定，懂得沟通，是伴侣最坚实的后盾。你的爱如细水长流，温暖而持久。",
+                    quote: "当你意识到想和某人共度余生时，你会希望余生尽快开始。",
+                    img: "https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?q=80&w=1920&auto=format&fit=crop"
+                },
+                // Col 3 (Secure - Ideal)
+                {
+                    title: "《时空恋旅人》",
+                    couple: "蒂姆 & 玛丽",
+                    tag: "完美依恋",
+                    desc: "你拥有教科书般的安全型依恋风格。你既能享受高浓度的亲密，又能保持人格的独立。你对伴侣充满信任，对自己充满信心。你的爱情没有狗血的剧情，只有平凡日子里闪闪发光的温暖。你是那种让人想与之共度一生的人。",
+                    quote: "我们生活的每一天，都是一起穿越时空。",
+                    img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1920&auto=format&fit=crop"
+                }
+            ]
+        ];
+
+        const sections = {
+            landing: document.getElementById('landing-page'),
+            quiz: document.getElementById('quiz-page'),
+            loading: document.getElementById('loading-page'),
+            result: document.getElementById('result-page')
+        };
+        const els = {
+            progressText: document.getElementById('progress-text'),
+            progressBar: document.getElementById('progress-bar'),
+            questionText: document.getElementById('question-text'),
+        };
+
+        function startQuiz() {
+            switchSection('quiz');
+            renderQuestion();
+        }
+
+        function switchSection(id) {
+            Object.values(sections).forEach(el => el.classList.add('hidden-section'));
+            sections[id].classList.remove('hidden-section');
+            sections[id].classList.remove('animate-fade-in');
+            void sections[id].offsetWidth; 
+            sections[id].classList.add('animate-fade-in');
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQIndex];
+            els.questionText.innerText = q.text;
+            els.progressText.innerText = `${(currentQIndex + 1).toString().padStart(2, '0')} / 30`;
+            els.progressBar.style.width = `${((currentQIndex + 1) / 30) * 100}%`;
+        }
+
+        function handleAnswer(value) {
+            const q = questions[currentQIndex];
+            const impact = value * q.weight; 
+            
+            if (q.axis === 'anxiety') anxietyScore += impact;
+            if (q.axis === 'avoidance') avoidanceScore += impact;
+
+            currentQIndex++;
+            
+            if (currentQIndex < questions.length) {
+                els.questionText.style.opacity = 0;
+                setTimeout(() => {
+                    renderQuestion();
+                    els.questionText.style.opacity = 1;
+                }, 200);
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            switchSection('loading');
+            const loadingTexts = [
+                "正在测量情感频率...",
+                "正在计算依恋矢量...",
+                "正在扫描电影档案...",
+                "正在冲洗底片..."
+            ];
+            let step = 0;
+            const interval = setInterval(() => {
+                if(step < loadingTexts.length) {
+                    document.getElementById('loading-text').innerText = loadingTexts[step];
+                    step++;
+                } else {
+                    clearInterval(interval);
+                    calculateAndShowResult();
+                }
+            }, 800);
+        }
+
+        function calculateAndShowResult() {
+            const maxScore = 15; 
+            
+            let xVal = avoidanceScore / maxScore; // -1 to 1
+            let yVal = anxietyScore / maxScore;   // -1 to 1
+            
+            // CSS Percentages (0% top/left to 100% bottom/right)
+            // Anxiety (Y): +1(High) -> 0% Top, -1(Low) -> 100% Bottom
+            // Avoidance (X): +1(High) -> 0% Left, -1(Low) -> 100% Right
+            let topPct = 50 - (yVal * 50); 
+            let leftPct = 50 - (xVal * 50);
+
+            topPct = Math.max(5, Math.min(95, topPct));
+            leftPct = Math.max(5, Math.min(95, leftPct));
+            
+            // Calculate Grid Indices (0 to 3)
+            // 0-25% = Index 0
+            // 25-50% = Index 1
+            // 50-75% = Index 2
+            // 75-100% = Index 3
+            let rowIndex = Math.floor(topPct / 25);
+            let colIndex = Math.floor(leftPct / 25);
+
+            // Clamp just in case
+            rowIndex = Math.min(3, Math.max(0, rowIndex));
+            colIndex = Math.min(3, Math.max(0, colIndex));
+
+            const resultData = resultsGrid[rowIndex][colIndex];
+
+            // Render Result
+            document.getElementById('result-tag').innerText = resultData.tag;
+            document.getElementById('result-type').innerText = resultData.title; // Using Title as main header now
+            document.getElementById('result-movie').innerText = resultData.title;
+            document.getElementById('result-couple').innerText = resultData.couple;
+            document.getElementById('result-desc').innerText = resultData.desc;
+            document.getElementById('result-quote').innerText = `"${resultData.quote}"`;
+            // Use local image based on movie title
+            const movieTitle = resultData.title.replace(/《|》/g, '');
+            document.getElementById('result-image').src = movieTitle + '.jpg';
+
+            const point = document.getElementById('chart-point');
+            const lineX = document.getElementById('line-x');
+            const lineY = document.getElementById('line-y');
+            
+            point.style.top = `${topPct}%`;
+            point.style.left = `${leftPct}%`;
+            
+            switchSection('result');
+
+            setTimeout(() => {
+                const h = Math.abs(50 - topPct);
+                const w = Math.abs(50 - leftPct);
+                lineY.style.height = `${h}%`;
+                lineY.style.top = topPct < 50 ? `${topPct}%` : '50%';
+                lineX.style.width = `${w}%`;
+                lineX.style.left = leftPct < 50 ? `${leftPct}%` : '50%';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
