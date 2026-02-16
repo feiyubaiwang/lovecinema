@@ -525,6 +525,15 @@
             els.questionText.innerText = q.text;
             els.progressText.innerText = `${(currentQIndex + 1).toString().padStart(2, '0')} / 30`;
             els.progressBar.style.width = `${((currentQIndex + 1) / 30) * 100}%`;
+            
+            // Reset option buttons state
+            const optionButtons = document.querySelectorAll('#quiz-page button');
+            optionButtons.forEach(button => {
+                button.blur(); // Remove focus state
+                // Reset any custom styles if applied
+                button.style.borderColor = '';
+                button.style.color = '';
+            });
         }
 
         function handleAnswer(value) {
