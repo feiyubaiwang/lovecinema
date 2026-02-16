@@ -549,6 +549,18 @@
             if (q.axis === 'anxiety') anxietyScore += impact;
             if (q.axis === 'avoidance') avoidanceScore += impact;
 
+            // Reset button states immediately
+            const optionButtons = document.querySelectorAll('#quiz-page button');
+            optionButtons.forEach(button => {
+                button.blur();
+                button.removeAttribute('style');
+                button.classList.remove('active', 'pressed', 'selected');
+                const icon = button.querySelector('i');
+                if (icon) {
+                    icon.removeAttribute('style');
+                }
+            });
+
             currentQIndex++;
             
             if (currentQIndex < questions.length) {
