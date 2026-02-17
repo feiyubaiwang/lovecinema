@@ -221,60 +221,62 @@
             <!-- Analysis Content Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 
-                <!-- Left: Quadrant Chart -->
-                <div class="glass-panel p-6 rounded-lg">
-                    <h3 class="font-serif text-xl mb-6 text-center text-white">你的恋爱坐标</h3>
-                    
-                    <div class="relative w-full aspect-square border border-gray-700 bg-[#1a1a1a] rounded-sm overflow-hidden">
-                        <!-- Labels -->
-                        <span class="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] text-gray-500 tracking-wider">高焦虑</span>
-                        <span class="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] text-gray-500 tracking-wider">低焦虑</span>
-                        <span class="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-500 tracking-wider writing-vertical-lr" style="writing-mode: vertical-lr;">高回避</span>
-                        <span class="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-500 tracking-wider writing-vertical-lr" style="writing-mode: vertical-lr;">低回避</span>
-
-                        <!-- Axes -->
-                        <div class="absolute top-0 bottom-0 left-1/2 w-[1px] bg-gray-500"></div> <!-- Y Axis -->
-                        <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-gray-500"></div> <!-- X Axis -->
-
-                        <!-- Sub-grid lines for visual 4x4 feel -->
-                        <div class="absolute top-0 bottom-0 left-[25%] w-[1px] border-r grid-line-dashed opacity-20"></div>
-                        <div class="absolute top-0 bottom-0 left-[50%] w-[1px] border-r grid-line-dashed opacity-20"></div>
-                        <div class="absolute top-0 bottom-0 right-[25%] w-[1px] border-r grid-line-dashed opacity-20"></div>
-                        <div class="absolute left-0 right-0 top-[25%] h-[1px] border-b grid-line-dashed opacity-20"></div>
-                        <div class="absolute left-0 right-0 top-[50%] h-[1px] border-b grid-line-dashed opacity-20"></div>
-                        <div class="absolute left-0 right-0 bottom-[25%] h-[1px] border-b grid-line-dashed opacity-20"></div>
-
-                        <!-- 16 Grid Labels (Background) -->
-                        <!-- Row 0: VERY HIGH ANXIETY -->
-                        <div class="absolute top-[5%] left-[5%] text-[8px] text-gray-700 font-serif opacity-20">相爱相杀</div>
-                        <div class="absolute top-[5%] left-[30%] text-[8px] text-gray-700 font-serif opacity-20">破碎的浪漫</div>
-                        <div class="absolute top-[5%] left-[55%] text-[8px] text-gray-700 font-serif opacity-20">激情拉扯</div>
-                        <div class="absolute top-[5%] right-[5%] text-[8px] text-gray-700 font-serif opacity-20">极致理想化</div>
+                <!-- Left: Quadrant Chart & Advice -->
+                <div class="space-y-6">
+                    <div class="glass-panel p-6 rounded-lg">
+                        <h3 class="font-serif text-xl mb-6 text-center text-white">你的恋爱坐标</h3>
                         
-                        <!-- Row 1: MED-HIGH ANXIETY -->
-                        <div class="absolute top-[30%] left-[5%] text-[8px] text-gray-700 font-serif opacity-20">逃避依恋</div>
-                        <div class="absolute top-[30%] left-[30%] text-[8px] text-gray-700 font-serif opacity-20">矛盾共生</div>
-                        <div class="absolute top-[30%] left-[55%] text-[8px] text-gray-700 font-serif opacity-20">过度解读</div>
-                        <div class="absolute top-[30%] right-[5%] text-[8px] text-gray-700 font-serif opacity-20">生死相随</div>
-                        
-                        <!-- Row 2: MED-LOW ANXIETY -->
-                        <div class="absolute bottom-[30%] left-[5%] text-[8px] text-gray-700 font-serif opacity-20">极简主义</div>
-                        <div class="absolute bottom-[30%] left-[30%] text-[8px] text-gray-700 font-serif opacity-20">傲慢防备</div>
-                        <div class="absolute bottom-[30%] left-[55%] text-[8px] text-gray-700 font-serif opacity-20">灵魂共振</div>
-                        <div class="absolute bottom-[30%] right-[5%] text-[8px] text-gray-700 font-serif opacity-20">温柔治愈</div>
-                        
-                        <!-- Row 3: LOW ANXIETY -->
-                        <div class="absolute bottom-[5%] left-[5%] text-[8px] text-gray-700 font-serif opacity-20">情感铠甲</div>
-                        <div class="absolute bottom-[5%] left-[30%] text-[8px] text-gray-700 font-serif opacity-20">势均力敌</div>
-                        <div class="absolute bottom-[5%] left-[55%] text-[8px] text-gray-700 font-serif opacity-20">长久陪伴</div>
-                        <div class="absolute bottom-[5%] right-[5%] text-[8px] text-gray-700 font-serif opacity-20">完美依恋</div>
+                        <div class="relative w-full aspect-square border border-gray-700 bg-[#1a1a1a] rounded-sm overflow-hidden">
+                            <!-- Labels -->
+                            <span class="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] text-gray-500 tracking-wider">高焦虑</span>
+                            <span class="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] text-gray-500 tracking-wider">低焦虑</span>
+                            <span class="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-500 tracking-wider writing-vertical-lr" style="writing-mode: vertical-lr;">高回避</span>
+                            <span class="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-500 tracking-wider writing-vertical-lr" style="writing-mode: vertical-lr;">低回避</span>
 
-                        <!-- User Point -->
-                        <div id="chart-point" class="chart-point absolute w-3 h-3 bg-brand rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 transition-all duration-1000"></div>
-                        
-                        <!-- Connecting Lines (Visual Aid) -->
-                        <div id="line-x" class="absolute bg-brand/30 h-[1px] w-0 top-1/2 left-1/2 z-10 transition-all duration-1000"></div>
-                        <div id="line-y" class="absolute bg-brand/30 w-[1px] h-0 top-1/2 left-1/2 z-10 transition-all duration-1000"></div>
+                            <!-- Axes -->
+                            <div class="absolute top-0 bottom-0 left-1/2 w-[1px] bg-gray-500"></div> <!-- Y Axis -->
+                            <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-gray-500"></div> <!-- X Axis -->
+
+                            <!-- Sub-grid lines for visual 4x4 feel -->
+                            <div class="absolute top-0 bottom-0 left-[25%] w-[1px] border-r grid-line-dashed opacity-20"></div>
+                            <div class="absolute top-0 bottom-0 left-[50%] w-[1px] border-r grid-line-dashed opacity-20"></div>
+                            <div class="absolute top-0 bottom-0 right-[25%] w-[1px] border-r grid-line-dashed opacity-20"></div>
+                            <div class="absolute left-0 right-0 top-[25%] h-[1px] border-b grid-line-dashed opacity-20"></div>
+                            <div class="absolute left-0 right-0 top-[50%] h-[1px] border-b grid-line-dashed opacity-20"></div>
+                            <div class="absolute left-0 right-0 bottom-[25%] h-[1px] border-b grid-line-dashed opacity-20"></div>
+
+                            <!-- 16 Grid Labels (Background) -->
+                            <!-- Row 0: VERY HIGH ANXIETY -->
+                            <div class="absolute top-[5%] left-[5%] text-[8px] text-gray-700 font-serif opacity-20">相爱相杀</div>
+                            <div class="absolute top-[5%] left-[30%] text-[8px] text-gray-700 font-serif opacity-20">破碎的浪漫</div>
+                            <div class="absolute top-[5%] left-[55%] text-[8px] text-gray-700 font-serif opacity-20">激情拉扯</div>
+                            <div class="absolute top-[5%] right-[5%] text-[8px] text-gray-700 font-serif opacity-20">极致理想化</div>
+                            
+                            <!-- Row 1: MED-HIGH ANXIETY -->
+                            <div class="absolute top-[30%] left-[5%] text-[8px] text-gray-700 font-serif opacity-20">逃避依恋</div>
+                            <div class="absolute top-[30%] left-[30%] text-[8px] text-gray-700 font-serif opacity-20">矛盾共生</div>
+                            <div class="absolute top-[30%] left-[55%] text-[8px] text-gray-700 font-serif opacity-20">过度解读</div>
+                            <div class="absolute top-[30%] right-[5%] text-[8px] text-gray-700 font-serif opacity-20">生死相随</div>
+                            
+                            <!-- Row 2: MED-LOW ANXIETY -->
+                            <div class="absolute bottom-[30%] left-[5%] text-[8px] text-gray-700 font-serif opacity-20">极简主义</div>
+                            <div class="absolute bottom-[30%] left-[30%] text-[8px] text-gray-700 font-serif opacity-20">傲慢防备</div>
+                            <div class="absolute bottom-[30%] left-[55%] text-[8px] text-gray-700 font-serif opacity-20">灵魂共振</div>
+                            <div class="absolute bottom-[30%] right-[5%] text-[8px] text-gray-700 font-serif opacity-20">温柔治愈</div>
+                            
+                            <!-- Row 3: LOW ANXIETY -->
+                            <div class="absolute bottom-[5%] left-[5%] text-[8px] text-gray-700 font-serif opacity-20">情感铠甲</div>
+                            <div class="absolute bottom-[5%] left-[30%] text-[8px] text-gray-700 font-serif opacity-20">势均力敌</div>
+                            <div class="absolute bottom-[5%] left-[55%] text-[8px] text-gray-700 font-serif opacity-20">长久陪伴</div>
+                            <div class="absolute bottom-[5%] right-[5%] text-[8px] text-gray-700 font-serif opacity-20">完美依恋</div>
+
+                            <!-- User Point -->
+                            <div id="chart-point" class="chart-point absolute w-3 h-3 bg-brand rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 transition-all duration-1000"></div>
+                            
+                            <!-- Connecting Lines (Visual Aid) -->
+                            <div id="line-x" class="absolute bg-brand/30 h-[1px] w-0 top-1/2 left-1/2 z-10 transition-all duration-1000"></div>
+                            <div id="line-y" class="absolute bg-brand/30 w-[1px] h-0 top-1/2 left-1/2 z-10 transition-all duration-1000"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -289,6 +291,19 @@
                         <p id="result-desc" class="text-gray-300 leading-relaxed text-sm md:text-base font-light">
                             Analysis goes here...
                         </p>
+                    </div>
+                    
+                    <!-- NEW: Advice Section -->
+                    <div class="glass-panel p-6 rounded-lg border-t border-brand/20">
+                        <h4 class="text-white font-serif text-lg mb-4 flex items-center gap-2">
+                            <i data-lucide="clapperboard" class="w-4 h-4 text-brand"></i>
+                            导演手记 / 关系处方
+                        </h4>
+                        <div class="max-h-[300px] overflow-y-auto pr-2 space-y-4">
+                            <p id="result-advice" class="text-gray-400 text-sm leading-7 font-sans">
+                                Advice goes here...
+                            </p>
+                        </div>
                     </div>
 
                     <div class="glass-panel p-5 rounded border-l-4 border-brand/60">
@@ -354,9 +369,7 @@
         let anxietyScore = 0;   
         let avoidanceScore = 0; 
 
-        // 16-GRID MOVIE DATABASE
-        // Rows: 0=High Anxiety, 3=Low Anxiety
-        // Cols: 0=High Avoidance, 3=Low Avoidance
+        // 16-GRID MOVIE DATABASE with Deep Advice
         const resultsGrid = [
             // ROW 0: VERY HIGH ANXIETY (The Volatile/Obsessive)
             [
@@ -367,7 +380,8 @@
                     tag: "相爱相杀",
                     desc: "你的爱情剧本充满了极致的张力。你极度渴望爱，却又本能地防御。在关系中，你可能不自觉地陷入“控制与反控制”的博弈。爱对你来说不是平静的港湾，而是一场高智商的战争，你既怕被吞噬，又怕被抛弃。",
                     quote: "婚姻就是互相妥协、努力经营，然后重新来过。",
-                    img: "https://images.unsplash.com/photo-1594322436404-5a0526db4d13?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1594322436404-5a0526db4d13?q=80&w=1920&auto=format&fit=crop",
+                    advice: "对于深陷“相爱相杀”剧本的你，最核心的课题是【停止权力的博弈】。<br><br>你的潜意识里可能认为，只有完全掌控对方，或者让对方感到痛苦，才能证明爱的存在。这种模式往往源于早年深刻的被背叛感。在日常相处中，当冲突发生时，试着按下暂停键，问自己：“我现在是在表达需求，还是在试图赢过对方？”<br><br>建议你练习“去防御化沟通”。不要用冷嘲热讽或沉默作为武器。试着展现脆弱，而不是展示獠牙。告诉对方：“我刚才那样说，是因为我很害怕失去你”，这比一万句辩论都更有力量。记住，爱不是为了打败对方，而是为了共同打败问题。"
                 },
                 // Col 1: Med Avoidance (Fearful - Insecure)
                 {
@@ -376,7 +390,8 @@
                     tag: "破碎的浪漫",
                     desc: "你像迪恩一样用尽全力去爱，却像辛迪一样在现实面前感到窒息。你内心深处渴望永恒，但潜意识里总觉得美好的事物终将破碎。这种悲观底色让你在面对冲突时，一边激烈争吵寻求关注，一边筑起高墙准备撤退。",
                     quote: "我觉得男人比女人更浪漫。我们结婚只因为我们爱那个女孩。",
-                    img: "https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你的剧本里充满了对【必然消逝】的恐惧。你太害怕结局会变坏，以至于在过程中就提前开始哀悼。这种心态导致你对伴侣的消极信号极度敏感，把每一次小的争吵都看作是关系结束的预兆。<br><br>给你的处方是：【活在当下的具体里】。当焦虑来袭时，不要去想“我们以后会不会分开”，而是关注“今晚我们吃什么”。学会区分“当下的情绪”和“事实”。伴侣现在累了不想说话，只是他累了，不代表他不爱你了。此外，建立自我安抚的机制至关重要，不要把所有的情绪调节责任都推给伴侣，学会自己拥抱那个内心哭泣的小孩。"
                 },
                 // Col 2: Med Secure (Preoccupied - Intense)
                 {
@@ -385,7 +400,8 @@
                     tag: "激情拉扯",
                     desc: "你的爱如烈火，充满戏剧性。你不在乎争吵，甚至认为激烈的冲突是爱的证明。你像诺亚一样执着，需要极高浓度的情感确认。如果生活太从容，你会觉得那是乏味；你追求的是那种非你不可、撕心裂肺的宿命感。",
                     quote: "虽然会有痛苦和差异，但我想和你在一起，直到永远。",
-                    img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1920&auto=format&fit=crop",
+                    advice: "在这个剧本里，激情是燃料，但也容易烧毁一切。你误以为【冲突的强度 = 爱的深度】，这让你在平淡期会感到极度不安，甚至下意识地制造麻烦来测试对方。<br><br>你需要学习的，是【欣赏平静的价值】。真正的亲密关系不是每天都在大雨中接吻，而是在沙发上各自看书也不觉得尴尬。试着降低对“及时回复”和“时刻关注”的执念。当对方没有秒回时，不要在脑海里编织他变心的故事。培养一些完全属于你自己的兴趣爱好，让你的世界除了他之外，还有别的光源。爱是锦上添花，不是救命稻草。"
                 },
                 // Col 3: Low Avoidance (Preoccupied - Obsessive)
                 {
@@ -394,7 +410,8 @@
                     tag: "极致理想化",
                     desc: "你为爱构建了一座宏伟的城堡。你倾向于将伴侣理想化，像盖茨比凝视绿光一样凝视着对方。你愿意为爱付出一切，甚至失去自我。但要小心，你爱上的究竟是那个真实的人，还是你为了填补内心空洞而投射出的完美幻影？",
                     quote: "我这一生都想要离你更近一步。",
-                    img: "https://images.unsplash.com/photo-1542259681-d2622960fc68?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1542259681-d2622960fc68?q=80&w=1920&auto=format&fit=crop",
+                    advice: "盖茨比式的悲剧，源于【过度美化】。你不仅美化伴侣，也美化了“牺牲”在爱里的价值。你习惯通过过度付出来换取对方的依赖，一旦对方没有给予同等的回报，你就会感到巨大的委屈。<br><br>请记住，【去魅】是走向成熟爱的第一步。试着把伴侣从神坛上拉下来，把他看作一个有缺点、会犯错、偶尔平庸的普通人。停止这种“自我感动式”的付出，问问对方真正需要的是什么。有时候，一杯温水比一场盛大的烟火更能温暖人心。找回你的自我边界，你不仅是某人的爱人，你首先是你自己。"
                 }
             ],
             // ROW 1: MED-HIGH ANXIETY
@@ -406,7 +423,8 @@
                     tag: "逃避依恋",
                     desc: "你像霍莉一样，是一只害怕被关进笼子的鸟。你渴望归属感，但当真爱靠近时，你的第一反应是逃跑。你害怕一旦确立关系就会失去自由，或者被看穿内心的狼藉。你在“想爱”和“不敢爱”之间反复横跳。",
                     quote: "你看，这就是你的问题，你害怕去爱别人，你怕这会成为你的羁绊。",
-                    img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你总是在寻找下一张机票，下一个出口。这种【逃跑本能】源于你深信“一旦被彻底了解，就不会被爱了”。你用独立和满不在乎来包装自己，其实内心极度渴望一个能看穿你伪装的人。<br><br>建议从【微小的承诺】开始练习。不需要一下子承诺一生一世，试着承诺下周的约会，承诺分享一件真实的糗事。当你想逃跑的时候，试着在原地多停留五分钟。告诉伴侣：“我现在有点害怕，想要后退，但这不代表我不喜欢你。”允许自己依赖别人，并不意味着你会失去自我，那是建立连接的开始。"
                 },
                 // Col 1 (Fearful - Complex)
                 {
@@ -415,7 +433,8 @@
                     tag: "矛盾共生",
                     desc: "你是复杂而迷人的矛盾体。你常常被那些让你痛苦的人吸引，认为那才是深刻。由于缺乏安全感，你容易情绪化，这让伴侣感到疲惫，也让你自己受伤。你想删除那些不愉快的记忆，但又深知正是那些记忆构成了现在的你。",
                     quote: "你可以从记忆中抹去一个人，但无法将他从心里驱逐。",
-                    img: "https://images.unsplash.com/photo-1516726817505-f5ed825624d8?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1516726817505-f5ed825624d8?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你的感情生活像是一场混乱又美丽的暴风雨。核心问题在于【情绪调节】。你容易被情绪淹没，然后做出冲动的决定（比如突然提分手，或说出伤人的话），事后又后悔不已。<br><br>给你的建议是建立【情绪缓冲区】。当你感到愤怒或绝望时，强制自己物理隔离30分钟，不要做任何决定，不要发任何信息。去散步，去洗澡，去听歌。等理智回归大脑皮层，再处理关系问题。此外，接受“爱包含痛苦”并不意味着你要主动寻找痛苦。健康的爱是治愈的，不是用来反复撕裂伤口的。试着去爱那个给你带来平静的人，而不是那个给你带来混乱的人。"
                 },
                 // Col 2 (Anxious - Sensitive)
                 {
@@ -424,7 +443,8 @@
                     tag: "过度解读",
                     desc: "在感情中，你往往是那个更投入、心思更细腻的人。你像汤姆一样，容易过度解读伴侣的一举一动，将自己的期待投射在对方身上。当对方无法回应你的期待时，你会陷入深深的自我怀疑。试着去爱真实的对方，而不是爱上爱情本身。",
                     quote: "仅仅因为她喜欢和你一样的奇怪玩意儿，并不代表她是你的灵魂伴侣。",
-                    img: "https://images.unsplash.com/photo-1529335764857-3f1164d1ea24?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1529335764857-3f1164d1ea24?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你最大的陷阱在于【投射效应】。你爱上的往往不是对方，而是你脑海中那个完美的幻象。对方只是回了一句简单的“嗯”，你却能脑补出一出他厌倦你的大戏。<br><br>解药是【核对事实】。当你觉得对方冷淡时，直接问：“你今天话很少，是因为工作累了还是心情不好？”而不是自己在那瞎猜。学会表达你的需求，而不是期待对方会读心术。“我希望你能多抱抱我”比生闷气有效一万倍。同时，降低对“灵魂伴侣”的执念。世界上没有完全契合的两个人，只有愿意磨合的两颗心。接受差异，而不是把它看作不爱的证据。"
                 },
                 // Col 3 (Anxious - Devoted)
                 {
@@ -433,7 +453,8 @@
                     tag: "生死相随",
                     desc: "你的爱纯粹而热烈。一旦认定一个人，你就会毫无保留地付出，甚至愿意牺牲自己。你将伴侣视为救赎，视为带你逃离枯燥生活的希望。这种爱感天动地，但也请记得，在爱别人之前，先学会独立地站立在船头。",
                     quote: "You jump, I jump. (你跳，我也跳。)",
-                    img: "https://images.unsplash.com/photo-1500699863892-a16999b7842c?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1500699863892-a16999b7842c?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你的爱充满了奉献精神，这很珍贵，但也充满风险。你容易陷入【融合焦虑】，觉得两个人必须像连体婴一样才算亲密。你把伴侣当成了你生命的救生板，这会给对方带来巨大的压力。<br><br>你需要练习的是【建立边界】。即使是最亲密的爱人，也是两个独立的个体。不要为了迎合对方而放弃自己的爱好、朋友和原则。试着在没有对方陪伴的时候，也能找到快乐。问问自己：“如果他不在了，我是谁？”爱应该是两个圆相交，而不是一个圆吞噬另一个圆。保持你的独特性，那才是你最初吸引他的地方。"
                 }
             ],
             // ROW 2: MED-LOW ANXIETY (Moving towards Secure)
@@ -445,7 +466,8 @@
                     tag: "极简主义",
                     desc: "你的情感背包里只装必要的行李。你像瑞恩一样，认为人际关系是沉重的负担。你擅长独处，拒绝深度羁绊，享受一种没有承诺的轻盈感。这不是因为你不需要爱，而是你太害怕失去自由，所以选择先拒绝世界。",
                     quote: "如果你想飞得快，就得轻装上阵。",
-                    img: "https://images.unsplash.com/photo-1436491865332-7a61a109a33e?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1436491865332-7a61a109a33e?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你把独立活成了一种信仰，但有时候，这只是一种高级的逃避。你虽然避免了受伤和麻烦，但也错过了生命中最深刻的体验——与另一个灵魂的深度共振。<br><br>建议你尝试【有控制的失控】。你可以继续保持你的独立空间，但试着给别人开一扇窗。不要总是在关系刚要深入时就切断连接。当你感到对方在索取你的情绪价值时，先别急着贴上“麻烦”的标签，试着去理解那是他在表达需要。人生的行李箱如果太空，虽然走得快，但也可能走得太孤独。试着往里面装一点点沉重的“爱”，你会发现它其实能让你走得更稳。"
                 },
                 // Col 1 (Dismissive - Guarded)
                 {
@@ -454,7 +476,8 @@
                     tag: "傲慢防备",
                     desc: "你用傲慢掩饰真心，用理智对抗心动。像达西先生一样，你外表高冷，内心却有深情。你极度看重自尊，不愿轻易暴露脆弱。你需要很长的时间去考察一个人，才会慢慢卸下防备，允许对方进入你的领地。",
                     quote: "可以说我都已经想通了，可我还是不知所措。",
-                    img: "https://images.unsplash.com/photo-1474552226712-ac0f0961a954?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1474552226712-ac0f0961a954?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你的问题不在于不爱，而在于【过度防御】。你太害怕被拒绝、被看轻，所以先摆出一副“我不在乎”的姿态。这种高冷的壳，往往会赶走那些真正想靠近你的人，或者吸引来那些喜欢挑战高难度的猎手，而非温暖的伴侣。<br><br>你需要做的功课是【语言化你的情感】。不要指望对方能读懂你沉默背后的深情。爱需要被说出来，需要被看见。当你因为对方的话感到受伤时，不要冷战，试着说：“你刚才那样说，我其实有点难过。”承认自己会受伤，不是软弱，而是信任的表现。放下你的傲慢（偏见自然会随之消失），你会发现，真实而笨拙的你，比完美的你更可爱。"
                 },
                 // Col 2 (Secure - Realistic)
                 {
@@ -463,7 +486,8 @@
                     tag: "灵魂共振",
                     desc: "你向往的不是轰轰烈烈，而是深刻的理解。你的爱情建立在交流之上，像杰西和席琳一样，你们可以在漫步中谈论一切。你相对安全，但也保持着清醒的现实感。你知道爱不仅仅是激情，更是两个独立灵魂的碰撞。",
                     quote: "如果这世上有什么魔法，那一定是在试图理解某人的过程中。",
-                    img: "https://images.unsplash.com/photo-1520032525096-7bd04a94b5a4?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1520032525096-7bd04a94b5a4?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你已经拥有了非常健康的爱情观：重视沟通和精神契合。你面临的挑战可能是【现实的琐碎】。当风花雪月的聊天变成了柴米油盐的账单，当彻夜长谈变成了带孩子的疲惫，如何保持那份灵魂的连接？<br><br>建议在日常生活中保留【神圣时间】。无论多忙，每周留出一个小时，不谈工作，不谈家务，只谈感受、梦想和最近读的书。保持对伴侣的好奇心，不要觉得你已经完全了解他了。人是流动的，去探索那个不断变化的当下的他。同时，也要允许关系中有“不说话”的时刻，有时候，沉默的陪伴也是一种深层的交流。"
                 },
                 // Col 3 (Secure - Gentle)
                 {
@@ -472,7 +496,8 @@
                     tag: "温柔治愈",
                     desc: "你的爱是温和的、包容的。你情绪稳定，不会因为对方的身份或情绪波动而患得患失。你愿意静静地等待，用真诚去融化对方的防线。在你的剧本里，爱不需要太多的技巧，只需要一颗真诚的心。",
                     quote: "我只是一个女孩，站在一个男孩面前，请求他爱她。",
-                    img: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你拥有治愈他人的天赋。你的稳定和包容是伴侣最大的安全感来源。但要注意，不要成为关系中的【老好人】。有时候，为了维护关系的和谐，你可能会隐忍自己的需求，或者过度包容对方的任性。<br><br>你需要学习的是【温柔地坚定】。不仅要看见对方的脆弱，也要看见自己的需求。当你的界限被侵犯时，温和而坚定地说是。真正的安全型依恋，不是永远不生气，而是能够建设性地表达愤怒。相信你的伴侣，相信他能够承接真实的你，包括你的不满和拒绝。一段最好的关系，是两个人都可以在对方面前做最真实的自己，而不用担心被评判。"
                 }
             ],
             // ROW 3: LOW ANXIETY (Very Secure / Dismissive Loner)
@@ -484,7 +509,8 @@
                     tag: "情感铠甲",
                     desc: "你是最难被攻克的堡垒。为了保护自己，你穿上了厚厚的铠甲，表现得玩世不恭或冷酷无情。只有极少数人能看到你面具下的深情。你很难信任别人，一旦遭到背叛，你会彻底关闭心门，永不回头。",
                     quote: "我有铠甲，因为我不想只剩下心脏。",
-                    img: "https://images.unsplash.com/photo-1510070112810-d4e9a46d9e91?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1510070112810-d4e9a46d9e91?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你的铠甲是你生存的手段，但也是你孤独的根源。你把所有的感情都深埋地下，用玩世不恭来试探真心。这种模式让你很难建立长期的信任关系，因为没有人能永远通过你设置的重重考验。<br><br>打破这个循环的关键是【去风险化】的尝试。试着把信任看作是一个存款过程，而不是一次性的赌博。不要一开始就全盘托出，也不要全盘封闭。每一次小的互动，都是在积攒信任的硬币。意识到过去的背叛属于过去，现在站在你面前的人，是无辜的。给他一个机会，也给你那颗想要爱人的心脏一个机会。卸下铠甲很危险，但那是拥抱的唯一方式。"
                 },
                 // Col 1 (Dismissive/Secure - Cool)
                 {
@@ -493,7 +519,8 @@
                     tag: "势均力敌",
                     desc: "你欣赏独立、强大、甚至带点危险气息的伴侣。你不喜欢那种黏腻的依赖关系，更享受一种势均力敌的较量感。在你的爱情里，保持神秘感和个人空间至关重要。你和伴侣不仅是爱人，更是并肩作战的战友。",
                     quote: "结局如果是和你在一起，那还不算太坏。",
-                    img: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?q=80&w=1920&auto=format&fit=crop",
+                    advice: "这种“强强联合”的关系非常带感，但也容易变成战场。你们都太强了，太习惯于赢，很难在对方面前示弱。这会导致当矛盾发生时，你们会开启冷战模式，比谁更不在乎，比谁更不需要对方。<br><br>要知道，【示弱是强者的特权】。只有内心足够强大的人，才敢于暴露软肋。在家里，试着脱下防弹衣。告诉对方你工作中的挫败，告诉他你也会累。这不会削弱你的魅力，反而会增加你的真实感。把竞争留给外面的世界，把柔软留给彼此。学会在没有危机和任务的时候，也能享受无所事事的亲密，那才是生活的本质。"
                 },
                 // Col 2 (Secure - Friends)
                 {
@@ -502,7 +529,8 @@
                     tag: "长久陪伴",
                     desc: "你是典型的安全型恋人。你不相信一见钟情的神话，更看重时间的沉淀。你的爱建立在深厚的友谊和了解之上。在感情中，你情绪极其稳定，懂得沟通，是伴侣最坚实的后盾。你的爱如细水长流，温暖而持久。",
                     quote: "当你意识到想和某人共度余生时，你会希望余生尽快开始。",
-                    img: "https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你拥有最稳固的关系基石。你的挑战在于如何【避免友谊化】。因为太熟悉、太默契，有时候反而少了一点脸红心跳的悸动。关系可能会变得像左手摸右手，虽然舒适，但缺乏激情。<br><br>建议在长久的陪伴中注入【新鲜感】。不要因为老夫老妻了就停止约会。偶尔制造一些惊喜，尝试一些两人从未做过的事情（一起去一个新的地方，学一项新技能）。保持个体的成长，让你自己总有新的一面展示给对方。记住，哈利和莎莉最后之所以能在一起，不仅因为他们是最好的朋友，更因为他们从未停止在对方身上发现新的可爱之处。继续做爱人，而不仅仅是室友。"
                 },
                 // Col 3 (Secure - Ideal)
                 {
@@ -511,7 +539,8 @@
                     tag: "完美依恋",
                     desc: "你拥有教科书般的安全型依恋风格。你既能享受高浓度的亲密，又能保持人格的独立。你对伴侣充满信任，对自己充满信心。你的爱情没有狗血的剧情，只有平凡日子里闪闪发光的温暖。你是那种让人想与之共度一生的人。",
                     quote: "我们生活的每一天，都是一起穿越时空。",
-                    img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1920&auto=format&fit=crop"
+                    img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1920&auto=format&fit=crop",
+                    advice: "你是人群中的幸运儿，也是【爱的光源】。你不仅自己拥有幸福的能力，还能治愈身边那些焦虑或回避的人。但即使是安全型，也需要维护和滋养。不要因为关系太顺遂而变得理所当然。<br><br>保持【感恩的仪式感】。像电影里那样，试着把每一天都当作最后一天来过。每天睡前和伴侣分享一件今天发生的快乐小事。当风暴来临时（生活总有风暴），继续做那个稳定的锚点，但也要允许自己有疲惫和寻求支持的时刻。你的存在本身就在证明：平凡、琐碎、充满烟火气的爱，才是最伟大的英雄主义。继续散发光芒吧，世界需要更多像你这样的爱人。"
                 }
             ]
         ];
@@ -635,6 +664,8 @@
             document.getElementById('result-couple').innerText = resultData.couple;
             document.getElementById('result-desc').innerText = resultData.desc;
             document.getElementById('result-quote').innerText = `"${resultData.quote}"`;
+            document.getElementById('result-advice').innerHTML = resultData.advice; // Use innerHTML for <br> tags
+
             // Use local image based on movie title
             const movieTitle = resultData.title.replace(/《|》/g, '');
             document.getElementById('result-image').src = movieTitle + '.jpg';
